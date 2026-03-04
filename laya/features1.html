@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoScan Features</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* --- Basic Setup and CSS Variables --- */
+        :root {
+          --primary-color: #4CAF50;  /* Green */
+          --secondary-color: #2196F3;
+          --accent-color: #FF9800;   /* Orange */
+          --dark-color: #333;       /* Dark Grey/Black */
+          --light-color: #f4f4f4;   /* Light Grey */
+          --white-color: #ffffff;    /* White */
+          --text-color: #333;
+          --text-light: #555;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body, html {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          line-height: 1.6;
+          background-color: var(--white-color);
+          color: var(--text-color);
+        }
+
+        .container {
+          width: 90%;
+          max-width: 1100px;
+          margin: 0 auto;
+          padding: 0 20px;
+        }
+
+        /* --- Header Styles (Green background, white text, orange button) --- */
+        header {
+          background-color: var(--primary-color);
+          padding: 0.8rem 0;
+        }
+        nav.container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; font-size: 1.8rem; font-weight: bold; color: var(--white-color); text-decoration: none; }
+        .logo i { margin-right: 10px; font-size: 2rem; line-height: 1; }
+        .nav-links { list-style: none; display: flex; gap: 30px; margin: 0; padding: 0; }
+        .nav-links li { margin: 0; }
+        .nav-links a { text-decoration: none; color: var(--white-color); font-size: 1rem; font-weight: 500; padding: 5px 0; transition: color 0.3s ease; background-color: transparent; }
+        .nav-links a:hover { color: var(--accent-color); }
+        /* Base button style */
+        .btn { display: inline-block; padding: 12px 30px; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; font-weight: bold; text-align: center; text-decoration: none; transition: background-color 0.3s ease, transform 0.2s ease; color: var(--white-color); }
+        .btn:hover { transform: translateY(-2px); }
+        /* Logout Button */
+        .btn-logout { background-color: var(--accent-color); color: var(--white-color); }
+        .btn-logout:hover { background-color: #e68a00; }
+        /* Optional Primary Button Style (if used elsewhere) */
+        .btn-primary { background-color: var(--primary-color); color: white;}
+        .btn-primary:hover { background-color: #3e8e41; }
+
+
+        /* --- Section Title Styles --- */
+        .section-title {
+          text-align: center;
+          font-size: 2.2rem;
+          font-weight: 600;
+          margin-bottom: 40px;
+          color: var(--dark-color);
+        }
+
+        /* --- FEATURES SECTION STYLES --- */
+        .features {
+          padding: 60px 0;
+          background-color: var(--white-color); /* White background for features */
+        }
+
+        .features-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 30px;
+          justify-content: center;
+        }
+
+        .feature-card {
+          background-color: var(--light-color); /* Light grey card background */
+          border-radius: 10px;
+          padding: 40px 30px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          text-align: center; /* Center align icon, heading, paragraph */
+        }
+
+        .feature-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-card i {
+          font-size: 3.5rem;
+          color: var(--primary-color); /* Green icon */
+          margin-bottom: 25px;
+        }
+
+        .feature-card h3 {
+          font-size: 1.4rem;
+          font-weight: 600;
+          color: var(--dark-color);
+          margin-bottom: 15px;
+        }
+
+        .feature-card p {
+          font-size: 0.95rem;
+          color: var(--text-light);
+          line-height: 1.5;
+        }
+
+        /* --- Responsive Styles for Features --- */
+        @media (max-width: 992px) {
+           .features-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+        }
+        @media (max-width: 768px) {
+           /* Hide nav links on smaller screens */
+           .nav-links { display: none; }
+           nav.container { justify-content: space-between; } /* Ensure logo and button space out */
+           .section-title { font-size: 1.8rem; margin-bottom: 30px; }
+           .features-grid { gap: 20px; }
+           .feature-card { padding: 30px 20px; }
+           .feature-card i { font-size: 3rem; }
+           .feature-card h3 { font-size: 1.25rem; }
+           .feature-card p { font-size: 0.9rem; }
+        }
+        @media (max-width: 480px) {
+            .btn { padding: 10px 20px; font-size: 0.9rem; }
+            .logo span { font-size: 1.5rem;}
+            .logo i {font-size: 1.8rem;}
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="container">
+          <div class="logo">
+            <i class="fas fa-recycle"></i>
+            <span>EcoScan</span>
+          </div>
+          <ul class="nav-links">
+            <li><a href="#features" class="active">Features</a></li> <!-- Example Active Link -->
+            <li><a href="#scanner">Scanner</a></li>
+            <li><a href="#rewards">Rewards</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#about">About</a></li>
+          </ul>
+          <!-- Make sure button class and text match -->
+          <button class="btn btn-logout" onclick="window.location.href='login.html'">Logout</button>
+        </nav>
+    </header>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+      <div class="container">
+        <h2 class="section-title">Why Choose EcoScan?</h2>
+        <div class="features-grid">
+          <!-- Card 1 -->
+          <div class="feature-card">
+            <i class="fas fa-qrcode"></i>
+            <h3>Easy Scanning</h3>
+            <p>Quickly scan barcodes or QR codes on plastic products to check recyclability.</p>
+          </div>
+          <!-- Card 2 -->
+          <div class="feature-card">
+            <i class="fas fa-coins"></i> <!-- Corrected icon -->
+            <h3>Earn Rewards</h3>
+            <p>Get points for every recyclable item you scan and redeem them for exciting rewards.</p>
+          </div>
+          <!-- Card 3 -->
+          <div class="feature-card">
+            <i class="fas fa-tree"></i>
+            <h3>Save Environment</h3>
+            <p>Make a positive impact on the environment by properly recycling plastic waste.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Other sections would go here if needed -->
+
+</body>
+</html>

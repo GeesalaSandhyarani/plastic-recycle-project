@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout Successful - EcoScan</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> <!-- Optional: For icons -->
+    <style>
+        /* --- Basic Setup and CSS Variables (Copied for consistency) --- */
+        :root {
+          --primary-color: #4CAF50;  /* Green */
+          --secondary-color: #2196F3;
+          --accent-color: #FF9800;   /* Orange */
+          --dark-color: #333;       /* Dark Grey/Black */
+          --light-color: #f4f4f4;   /* Light Grey */
+          --white-color: #ffffff;    /* White */
+          --text-color: #333;
+          --text-light: #555;
+          --success-color: #4CAF50; /* Added for success message */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body, html {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          line-height: 1.6;
+          background-color: var(--light-color); /* Light background for the page */
+          color: var(--text-color);
+          height: 100%; /* Ensure body takes full height */
+        }
+
+        /* Centering container */
+        .logout-container {
+          display: flex;
+          flex-direction: column;
+          justify-content: center; /* Center vertically */
+          align-items: center;     /* Center horizontally */
+          min-height: 100vh;       /* Take full viewport height */
+          text-align: center;
+          padding: 40px 20px;
+        }
+
+        /* Optional Icon Styling */
+        .logout-icon {
+            font-size: 4rem; /* Large icon */
+            color: var(--success-color); /* Green for success */
+            margin-bottom: 25px;
+        }
+
+        /* Heading style */
+        .logout-container h1 {
+          font-size: 2rem;
+          color: var(--dark-color);
+          margin-bottom: 15px;
+        }
+
+        /* Paragraph style */
+        .logout-container p {
+          font-size: 1.1rem;
+          color: var(--text-light);
+          margin-bottom: 30px;
+          max-width: 400px; /* Limit width for readability */
+        }
+
+        /* Button Style (Consistent with main app's primary button) */
+        .btn {
+          display: inline-block;
+          padding: 12px 30px;
+          border: none;
+          border-radius: 6px;
+          cursor: pointer;
+          font-size: 1rem;
+          font-weight: bold;
+          text-align: center;
+          text-decoration: none;
+          transition: background-color 0.3s ease, transform 0.2s ease;
+          color: var(--white-color);
+          background-color: var(--primary-color); /* Use primary green */
+        }
+        .btn:hover {
+          background-color: #388E3C; /* Darker green */
+          transform: translateY(-2px);
+        }
+
+         /* Optional: Link to homepage */
+         .home-link {
+            margin-top: 20px;
+            color: var(--secondary-color); /* Blue link color */
+            text-decoration: none;
+            font-size: 0.95rem;
+         }
+         .home-link:hover {
+            text-decoration: underline;
+         }
+
+    </style>
+</head>
+<body>
+
+    <div class="logout-container">
+        <!-- Optional Success Icon -->
+        <i class="fas fa-check-circle logout-icon"></i>
+
+        <h1>Logout Successful</h1>
+        <p>You have been securely logged out of your EcoScan account.</p>
+
+        <!-- Link/Button to Login Again -->
+        <a href="login.html" class="btn">Login Again</a>
+
+        <!-- Optional: Link back to the main homepage -->
+        <a href="home.html" class="home-link">Go to Homepage</a>
+    </div>
+
+</body>
+</html>

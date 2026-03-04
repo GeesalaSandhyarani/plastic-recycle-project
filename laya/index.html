@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoScan - Recycle Scanner</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+     :root {
+      --primary-color: #4CAF50;  /* Green */
+      --secondary-color: #2196F3;
+      --accent-color: #FF9800;   /* Orange */
+      --dark-color: #333;       /* Dark Grey/Black */
+      --light-color: #f4f4f4;   /* Light Grey */
+      --white-color: #ffffff;    /* White */
+      --text-color: #333;
+      --text-light: #555;
+      --danger-color: #f44336;
+      --success-color: #4CAF50;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body, html {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background-color: var(--white-color); /* Default background */
+      color: var(--text-color);
+    }
+      
+    html {
+      scroll-behavior: smooth; /* Enables smooth scrolling for anchor links */
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1100px; /* Consistent max width */
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* --- === HEADER STYLES ( Matches Video) === --- */
+    header {
+      background-color: var(--primary-color); /* Green */
+      padding: 0.8rem 0; 
+    }
+
+    nav.container {
+      display: flex;
+      justify-content: space-between; 
+      align-items: center; 
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.8rem; 
+      font-weight: bold;
+      color: var(--white-color); 
+      text-decoration: none; 
+    }
+
+    .logo i {
+      margin-right: 10px;
+      font-size: 2rem; 
+      line-height: 1; 
+    }
+
+    .nav-links {
+      list-style: none; 
+      display: flex;
+      gap: 30px; 
+      margin: 0; 
+      padding: 0; 
+    }
+
+    .nav-links li {
+      margin: 0; 
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--white-color); 
+      font-size: 1rem;          
+      font-weight: 500;       
+      padding: 5px 0;         
+      transition: color 0.3s ease; 
+      background-color: transparent; 
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-color); /* Orange on hover */
+    }
+
+    .btn {
+      display: inline-block; 
+      padding: 12px 30px;  
+      border: none;          
+      border-radius: 6px;    
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;     
+      text-align: center;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      color: var(--white-color); 
+    }
+    .btn:hover {
+      transform: translateY(-2px); 
+    }
+
+    .btn-logout {
+      background-color: var(--accent-color); /* Orange background */
+      color: var(--white-color);             /* White text */
+    }
+
+    .btn-logout:hover {
+      background-color: #e68a00; /* Darker Orange on hover */
+    }
+
+    .btn-primary { /* For scanner start button etc. */
+        background-color: var(--primary-color);
+        color: white;
+    }
+    .btn-primary:hover {
+        background-color: #3e8e41;
+    }
+    /* --- === HEADER STYLES END === --- */
+
+
+    /* --- Slideshow Styles --- */
+    .slideshow-container { 
+      position: relative;
+       width: 100%;
+        height: 85vh; /* You can adjust height as needed */
+       overflow: hidden;
+        background-color: #e0e0e0; /* Fallback if images don't load */
+       }
+    .slide {
+       position: absolute;
+       top: 0;
+        left: 0; 
+        width: 100%; 
+        height: 100%;
+         background-size: cover;
+          background-position: 
+          center center;
+           background-repeat: no-repeat; 
+           transition: transform 1.2s ease-in-out; /* Smooth transition for slide movement */
+           }
+    .slide-1 { background-image: url('img7.jpg'); } 
+    .slide-2 { background-image: url('img2.jpg'); } 
+    .slide-3 { background-image: url('img3.jpg'); } 
+    .slide-4 { background-image: url('img6.jpg'); } 
+
+
+    .prev, .next {
+       cursor: pointer; 
+       position: absolute; 
+       top: 50%;
+       width: auto;
+       margin-top: -22px; 
+       padding: 16px;
+       color: white; 
+       font-weight: bold; 
+       font-size: 20px;
+       transition: 0.6s ease; 
+       border-radius: 0 3px 3px 0;
+       user-select: none;
+       background-color: rgba(0,0,0,0.3);
+       z-index: 2;
+       }
+    .next { 
+      right: 0;
+       border-radius: 3px 0 0 3px;
+       }
+    .prev { 
+      left: 0; 
+      border-radius: 0 3px 3px 0;
+     }
+    .prev:hover, .next:hover {
+       background-color: rgba(0,0,0,0.8); 
+      }
+    .dots-container { 
+      text-align: center; 
+      position: absolute;
+       bottom: 20px; 
+       left: 50%;
+        transform: translateX(-50%); 
+        z-index: 2;
+       }
+    .dot {
+       cursor: pointer; 
+       height: 15px;
+        width: 15px;
+         margin: 0 5px; 
+         background-color: rgba(255, 255, 255, 0.5); 
+         border-radius: 50%;
+          display: inline-block;
+           transition: background-color 0.6s ease;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+           }
+    .active, .dot:hover {
+       background-color: rgba(255, 255, 255, 0.9);
+        border-color: rgba(0, 0, 0, 0.5);
+       }
+
+     /* --- General Section Styles --- */
+     .section-title { 
+      text-align: center;
+       font-size: 2.2rem;
+        font-weight: 600;
+        margin-bottom: 40px;
+         color: var(--dark-color);
+         }
+     .features, .rewards-section, .how-it-works, .about-section { /* Removed .scanner-section from here */
+       padding: 60px 0;
+       }
+     .features, .about-section {
+       background-color: var(--white-color);
+       }
+     /* .scanner-section CSS removed as section is gone */
+     .rewards-section {
+       background-color: var(--white-color);
+       }
+     .how-it-works { 
+      background-color: var(--light-color); 
+    }
+
+    /* --- Feature Section --- */
+    .features-grid { 
+      display: grid;
+       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;
+       justify-content: center;
+       }
+    .feature-card { background-color: var(--light-color);
+       border-radius: 10px; padding: 40px 30px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+       transition: transform 0.3s ease, box-shadow 0.3s ease; text-align: center; }
+    .feature-card:hover { transform: translateY(-5px); box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12); }
+    .feature-card i { font-size: 3.5rem; color: var(--primary-color);
+       margin-bottom: 25px; 
+      }
+    .feature-card h3 { font-size: 1.4rem; font-weight: 600; color: var(--dark-color); margin-bottom: 15px; }
+    .feature-card p { font-size: 0.95rem; color: var(--text-light); line-height: 1.5; }
+
+    /* --- Scanner Section CSS (can be fully removed if not planning to re-add) --- */
+    /* 
+    .scanner-container { text-align: center; max-width: 600px; margin: 0 auto; }
+    .scanner-container p { margin-bottom: 20px; color: var(--text-light);}
+    #reader { display: none; width: 100%; max-width: 500px; margin: 20px auto; border: 1px solid #ccc; }
+    #result { display: none; margin: 20px auto; padding: 15px; border-radius: 5px; max-width: 500px; text-align: left;}
+    .result-recyclable { background-color: #dff0d8; border: 1px solid #d0e9c6; color: #3c763d; }
+    .result-non-recyclable { background-color: #f2dede; border: 1px solid #ebccd1; color: #a94442; } 
+    */
+
+
+    /* --- About Section --- */
+    .about-container { display: flex; flex-wrap: wrap; align-items: center; gap: 40px; }
+    .about-text { flex: 1 1 50%; min-width: 300px; }
+    .about-text p { margin-bottom: 15px; color: var(--text-light); }
+    .about-text ul { list-style: disc; margin: 15px 0 15px 20px; padding-left: 20px; color: var(--text-light); }
+    .about-text ul li { margin-bottom: 10px; }
+    .about-image { flex: 1 1 45%; min-width: 300px; text-align: center; }
+    .about-image img { max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); display: block; margin: 0 auto; }
+
+    /* --- Footer --- */
+    footer { background-color: var(--dark-color); color: white; padding: 40px 0 20px 0; margin-top: 40px; }
+    .footer-container { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; }
+    .footer-section { flex: 1 1 250px; margin-bottom: 20px; min-width: 200px; }
+    .footer-section h3 { margin-bottom: 15px; color: var(--accent-color); }
+    .footer-section p { margin-bottom: 15px; font-size: 0.95rem; color: #eee; }
+    .footer-section ul { list-style: none; padding: 0; }
+    .footer-section ul li { margin-bottom: 10px; font-size: 0.95rem; color: #eee; }
+    .footer-section ul li i { margin-right: 8px; width: 1em; color: var(--primary-color);}
+    .footer-section ul li a { color: white; text-decoration: none; transition: all 0.3s ease; }
+    .footer-section ul li a:hover { color: var(--accent-color); padding-left: 5px; }
+    .social-links { display: flex; margin-top: 15px; }
+    .social-links a { display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; background-color: rgba(255,255,255,0.1); margin-right: 10px; color: white; transition: all 0.3s ease; text-decoration: none; font-size: 1.1rem;}
+    .social-links a:hover { background-color: var(--accent-color); transform: translateY(-3px); }
+    .copyright { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 30px; font-size: 0.9em; color: #ccc; }
+
+    /* --- Responsive --- */
+    @media (max-width: 768px) {
+        .slideshow-container { height: 50vh; }
+        .section-title { font-size: 1.8rem; }
+        .nav-links { display: none; } 
+        nav.container { justify-content: space-between; } 
+        .features-grid { grid-template-columns: 1fr; }
+        .about-container { flex-direction: column; }
+        .about-image { margin-top: 30px; order: -1; }
+        .about-text, .about-image { flex-basis: 100%; }
+        .footer-container { flex-direction: column; align-items: center; text-align: center; }
+        .footer-section { width: 80%; text-align: center; }
+        .social-links { justify-content: center; }
+    }
+     @media (max-width: 480px) {
+        .slideshow-container { height: 40vh; }
+        .section-title { font-size: 1.6rem; }
+        .btn { padding: 10px 20px; font-size: 0.9rem; } 
+        .logo span { font-size: 1.5rem;} 
+        .logo i {font-size: 1.8rem;}
+     }
+     /* Styles for Firebase button section */
+      :where([class^="ri-"])::before { content: "\f3c2"; } 
+      .futuristic-heading {
+        font-family: 'Orbitron', sans-serif;
+        background: linear-gradient(90deg, #00f2fe, #4facfe);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 10px rgba(79, 172, 254, 0.3);
+      }
+      .futuristic-button {
+        background: rgba(18, 18, 18, 0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(79, 172, 254, 0.3);
+        box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        animation: pulse 2s infinite;
+      }
+      .futuristic-button:before {
+        content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(45deg, #4facfe, #00f2fe); opacity: 0; transition: opacity 0.3s ease; z-index: -1;
+      }
+      .futuristic-button:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(0, 242, 254, 0.5); }
+      .futuristic-button:hover:before { opacity: 0.2; }
+      .futuristic-button:active { transform: scale(0.95); }
+      .futuristic-button:focus { outline: none; box-shadow: 0 0 0 2px rgba(79, 172, 254, 0.5); }
+      .futuristic-button .button-text { position: relative; z-index: 1; }
+      .ripple {
+        position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.4);
+        transform: scale(0); animation: ripple 0.6s linear; pointer-events: none;
+      }
+      @keyframes ripple { to { transform: scale(4); opacity: 0; } }
+      @keyframes pulse {
+        0% { box-shadow: 0 0 15px rgba(0, 242, 254, 0.3); }
+        50% { box-shadow: 0 0 25px rgba(0, 242, 254, 0.5); }
+        100% { box-shadow: 0 0 15px rgba(0, 242, 254, 0.3); }
+      }
+      .floating { animation: floating 3s ease-in-out infinite; }
+      @keyframes floating { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+      .scanner-line {
+        position: absolute; height: 2px; width: 100%;
+        background: linear-gradient(90deg, transparent, #00f2fe, transparent); top: 0; animation: scan 2s linear infinite;
+      }
+      @keyframes scan { 0% { top: 0%; } 100% { top: 100%; } }
+      .firebase-access-section { 
+        background-color: #0a0a0a;
+        font-family: 'Rajdhani', sans-serif;
+        padding: 40px 0; 
+        background-image:
+          radial-gradient(circle at 10% 20%, rgba(79, 172, 254, 0.1) 0%, transparent 20%),
+          radial-gradient(circle at 90% 80%, rgba(0, 242, 254, 0.1) 0%, transparent 20%);
+      }
+       .grid-bg { 
+        background-image:
+          linear-gradient(rgba(79, 172, 254, 0.1) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(79, 172, 254, 0.1) 1px, transparent 1px);
+        background-size: 20px 20px;
+      }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav class="container">
+      <div class="logo">
+        <i class="fas fa-recycle"></i>
+        <span>EcoScan</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#scanner">Scanner</a></li> <!-- This link will now be a dead anchor -->
+        <li><a href="Rewards.html#reward programs" class="link">Rewards</a></li>
+        <li><a href="How it works.html#How it works" class="link">How It Works</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+      <button class="btn btn-logout" onclick="window.location.href='logout.html'">Logout</button>
+    </nav>
+  </header>
+
+  <div class="slideshow-container">
+      <div class="slide slide-1"></div>
+      <div class="slide slide-2"></div>
+      <div class="slide slide-3"></div>
+      <div class="slide slide-4"></div>
+      <a class="prev" onclick="plusSlides(-1)">❮</a>
+      <a class="next" onclick="plusSlides(1)">❯</a>
+      <div class="dots-container"></div>
+  </div>
+
+  <div class="content">
+
+       <section class="features" id="features">
+        <div class="container">
+          <h2 class="section-title">Why Choose EcoScan?</h2>
+          <div class="features-grid">
+            <div class="feature-card"> <i class="fas fa-qrcode"></i> <h3>Easy Scanning</h3> <p>Quickly scan barcodes or QR codes on plastic products to check recyclability.</p> </div>
+            <div class="feature-card"> <i class="fas fa-coins"></i> <h3>Earn Rewards</h3> <p>Get points for every recyclable item you scan and redeem them for exciting rewards.</p> </div>
+            <div class="feature-card"> <i class="fas fa-tree"></i> <h3>Save Environment</h3> <p>Make a positive impact on the environment by properly recycling plastic waste.</p> </div>
+          </div>
+        </div>
+      </section>
+
+    <!-- SCANNER SECTION HAS BEEN REMOVED FROM HERE -->
+
+    <div class="firebase-access-section grid-bg">
+        <div class="w-full max-w-md text-center relative mx-auto"> 
+          <div class="mb-12 floating">
+            <h1 class="futuristic-heading text-4xl md:text-5xl font-bold mb-2">
+                ♻ ecoScanner
+            </h1>
+            <p class="text-gray-300 text-lg">
+              Access Firebase Studio to manage your digital assets
+            </p>
+          </div>
+
+          <div class="relative w-full max-w-xs mx-auto mb-8">
+            <div
+              class="absolute inset-0 rounded-lg bg-gradient-to-r from-primary to-secondary opacity-20 blur-lg"
+            ></div>
+            <button
+              id="firebaseButton"
+              class="futuristic-button w-full py-4 px-8 text-white font-semibold rounded-button !rounded-button whitespace-nowrap"
+              aria-label="Go to Firebase Studio"
+            >
+              <div class="scanner-line"></div>
+              <div class="flex items-center justify-center gap-3">
+                <div class="w-6 h-6 flex items-center justify-center">
+                  <i class="ri-database-2-line ri-lg"></i>
+                </div>
+                <span class="button-text font-['Orbitron']">FIREBASE STUDIO</span>
+                <div class="w-6 h-6 flex items-center justify-center">
+                  <i class="ri-arrow-right-line ri-lg"></i>
+                </div>
+              </div>
+            </button>
+          </div>
+
+          <div class="text-gray-400 text-sm">
+            <p>Secure connection • Last updated: May 24, 2025</p>
+          </div>
+        </div>
+        <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+        <script>
+          tailwind.config = {
+            theme: {
+              extend: {
+                colors: { primary: "#4facfe", secondary: "#00f2fe" }, 
+                borderRadius: {
+                  none: "0px", sm: "4px", DEFAULT: "8px", md: "12px", lg: "16px",
+                  xl: "20px", "2xl": "24px", "3xl": "32px", full: "9999px", button: "8px",
+                },
+              },
+            },
+          };
+        </script>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"/>
+    </div>
+
+
+      <section class="about-section" id="about">
+        <div class="container">
+          <h2 class="section-title">About Our Mission</h2>
+          <div class="about-container">
+            <div class="about-text">
+              <p>EcoScan was founded with a simple mission: to make plastic recycling easier, more accessible, and rewarding for everyone. We believe that small actions, when taken collectively, can lead to significant environmental impact.</p>
+              <p>Through our platform, we aim to:</p>
+              <ul>
+                <li>Educate people about proper plastic recycling</li>
+                <li>Reduce plastic waste in landfills and oceans</li>
+                <li>Create incentives for sustainable behavior</li>
+                <li>Connect individuals with recycling facilities</li>
+                <li>Track and measure environmental impact</li>
+              </ul>
+              <p>By partnering with recycling companies, environmental organizations, and local governments, we're building a comprehensive ecosystem that makes it easier and more rewarding to recycle plastic items.</p>
+            </div>
+            <div class="about-image">
+              <img src="img4.jpg" alt="Sculpture made of recycled plastic bottles"> 
+            </div>
+          </div>
+        </div>
+      </section>
+
+  </div> 
+
+  <footer>
+      <div class="container">
+        <div class="footer-container">
+          <div class="footer-section"> <h3>EcoScan</h3> <p>Making plastic recycling easier and more rewarding for everyone.</p> <div class="social-links"> <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a><a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a><a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a><a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a> </div> </div>
+          <div class="footer-section"> <h3>Quick Links</h3> 
+            <ul>
+               <li><a href="#features">Features</a></li>
+               <li><a href="#scanner">Scanner</a></li> <!-- This link will now be a dead anchor -->
+               <li><a href="Rewards.html#reward prograws" class="link">Rewards</a></li>
+               <li><a href="How it works.html#how it work">How It Works</a></li>
+               <li><a href="#about">About</a></li> 
+              </ul>
+             </div>
+          <div class="footer-section"> <h3>Contact Us</h3> <ul> <li><i class="fas fa-map-marker-alt"></i> V.n, pally Sridevi...</li><li><i class="fas fa-phone"></i>
+             9848********</li><li><i class="fas fa-envelope"></i> info@eco</li> </ul> </div>
+        </div>
+        <div class="copyright"> <p>© 2025 EcoScan. All rights reserved.</p> </div>
+      </div>
+  </footer>
+
+  <script>
+    const plasticDatabase = {
+        '123456789012': { name: 'Plastic Water Bottle (PET)', recyclable: true, type: 'PET (Type 1)', instructions: 'Remove cap and label if possible. Rinse and place in recycling bin.', points: 15 },
+        '456789012345': { name: 'Yogurt Container (PP)', recyclable: true, type: 'PP (Type 5)', instructions: 'Rinse thoroughly. Check local recycling guidelines as some facilities may not accept.', points: 10 },
+        '789012345678': { name: 'Plastic Bag (LDPE)', recyclable: false, type: 'LDPE (Type 4)', instructions: 'Not recyclable in standard bins. Return to grocery store collection points.', points: 5 }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+        const slideshowContainer = document.querySelector('.slideshow-container');
+        if (slideshowContainer) {
+            const slides = slideshowContainer.querySelectorAll('.slide');
+            const dotsContainer = slideshowContainer.querySelector('.dots-container');
+            const prevButton = slideshowContainer.querySelector('.prev');
+            const nextButton = slideshowContainer.querySelector('.next');
+            
+            if (slides.length > 0 && dotsContainer) {
+                let currentSlideIndex = 0;
+                let slideInterval;
+                const autoSlideDelay = 4000; 
+
+                slides.forEach((_, index) => {
+                    const dot = document.createElement('span');
+                    dot.classList.add('dot');
+                    dot.dataset.slideIndex = index;
+                    dot.addEventListener('click', () => {
+                        currentSlideDot(index);
+                    });
+                    dotsContainer.appendChild(dot);
+                });
+                const dots = dotsContainer.querySelectorAll('.dot');
+
+                function updateSlideDisplay() {
+                    slides.forEach((slide, i) => {
+                        slide.style.transform = `translateX(${(i - currentSlideIndex) * 100}%)`; 
+                    });
+                    dots.forEach(dot => dot.classList.remove('active'));
+                    if(dots[currentSlideIndex]) dots[currentSlideIndex].classList.add('active');
+                }
+
+                window.showSlideManual = function(index) { 
+                    if (index >= slides.length) currentSlideIndex = 0;
+                    else if (index < 0) currentSlideIndex = slides.length - 1;
+                    else currentSlideIndex = index;
+                    updateSlideDisplay();
+                    resetAutoSlide(); 
+                }
+
+                window.plusSlides = n => { 
+                    showSlideManual(currentSlideIndex + n);
+                };
+                window.currentSlideDot = n => { 
+                    showSlideManual(n);
+                };
+                
+                function startAutoSlide() {
+                    stopAutoSlide(); 
+                    slideInterval = setInterval(() => {
+                        currentSlideIndex = (currentSlideIndex + 1) % slides.length; 
+                        updateSlideDisplay();
+                    }, autoSlideDelay);
+                }
+
+                function stopAutoSlide() {
+                    clearInterval(slideInterval);
+                }
+
+                function resetAutoSlide() {
+                    stopAutoSlide();
+                    startAutoSlide();
+                }
+                
+                updateSlideDisplay(); 
+                startAutoSlide();   
+
+                slideshowContainer.addEventListener('mouseenter', stopAutoSlide);
+                slideshowContainer.addEventListener('mouseleave', startAutoSlide);
+
+            } else {
+                if (slides.length === 0) console.warn("Slideshow: No .slide elements found.");
+                if (!dotsContainer) console.warn("Slideshow: .dots-container element not found.");
+            }
+        } else {
+             console.warn("Slideshow: .slideshow-container element not found.");
+        }
+
+
+        // --- QR Code Scanner Logic (Elements for this are now removed) ---
+        const startScannerBtn = document.getElementById('startScannerBtn');
+        if (startScannerBtn) { // This will now be false, so the event listener won't be added
+            startScannerBtn.addEventListener('click', () => {
+                alert("Scanner functionality would start here.");
+            });
+        }
+        
+        const firebaseButton = document.getElementById("firebaseButton");
+        if (firebaseButton) {
+            firebaseButton.addEventListener("click", function (e) {
+                const ripple = document.createElement("span");
+                ripple.classList.add("ripple");
+                this.appendChild(ripple);
+                const rect = firebaseButton.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                ripple.style.left = x + "px";
+                ripple.style.top = y + "px";
+                setTimeout(() => { ripple.remove(); }, 600);
+                window.open(
+                    "https://9000-firebase-studio-1748023913824.cluster-xpmcxs2fjnhg6xvn446ubtgpio.cloudworkstations.dev/?embedded=0&monospaceUid=244716",
+                    "_blank"
+                );
+            });
+        }
+
+        if (!document.querySelector('style#result-styles')) {
+             const styleSheet = document.createElement("style");
+             styleSheet.id = "result-styles";
+             // Styles for #result, .result-recyclable, .result-non-recyclable can be removed if #result div is also gone
+             // For now, kept as they don't harm if #result is not present
+             styleSheet.innerText = `
+                #result { margin: 20px auto; } 
+                .result-recyclable { background-color: #dff0d8; border: 1px solid #d0e9c6; color: #3c763d; padding: 15px; border-radius: 5px; }
+                .result-non-recyclable { background-color: #f2dede; border: 1px solid #ebccd1; color: #a94442; padding: 15px; border-radius: 5px; }
+             `;
+             document.head.appendChild(styleSheet);
+        }
+
+    }); 
+  </script>
+
+</body>
+</html>

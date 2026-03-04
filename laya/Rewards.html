@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EcoScan Rewards Program</title> <!-- Updated Title -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --primary-color: #4CAF50; /* Green */
+      --secondary-color: #2196F3;
+      --accent-color: #FF9800;
+      --dark-color: #333;    /* Dark Grey/Black */
+      --light-color: #f4f4f4; /* Light Grey */
+      --white-color: #ffffff; /* White */
+      --text-color: #333;   /* Default text color */
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Nicer default font */
+      line-height: 1.6;
+      background-color: var(--white-color); /* Set a base background for the page */
+      color: var(--text-color);
+    }
+
+    /* Container for centering content */
+    .container {
+      width: 90%;
+      max-width: 1100px; /* Adjust max-width as needed */
+      margin: 0 auto; /* Center the container */
+      padding: 0 20px; /* Add some horizontal padding */
+    }
+
+    /* Header Styles (assuming structure from your code) */
+    header {
+        background-color: var(--dark-color);
+        color: var(--white-color);
+        padding: 1rem 0; /* Use rem for padding */
+    }
+
+    header nav.container { /* Apply container directly to nav */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav .logo {
+      font-size: 1.5rem;
+      font-weight: bold; /* Make logo bold */
+      color: var(--white-color);
+      display: flex;
+      align-items: center;
+      text-decoration: none; /* Remove underline if logo is a link */
+    }
+
+    nav .logo i {
+      margin-right: 10px;
+      font-size: 1.8rem; /* Slightly larger icon */
+    }
+
+    nav .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 15px; /* Use gap for spacing */
+    }
+
+    nav .nav-links li {
+      margin: 0; /* Remove default li margin */
+    }
+
+    nav .nav-links a {
+      text-decoration: none;
+      color: var(--white-color);
+      font-size: 1rem; /* Adjusted font size */
+      padding: 8px 15px; /* Adjusted padding */
+      border-radius: 5px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    nav .nav-links a:hover,
+    nav .nav-links a.active { /* Add an active class style */
+      background-color: var(--primary-color);
+      color: var(--white-color);
+    }
+
+    /* General Button Styles */
+     nav .btn,
+     .rewards-info .btn { /* Target button inside rewards-info */
+      display: inline-block; /* Needed for margin auto */
+      padding: 10px 25px; /* More padding */
+      background-color: var(--primary-color);
+      color: var(--white-color);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 500; /* Slightly bolder */
+      text-align: center;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+     nav .btn:hover,
+     .rewards-info .btn:hover {
+      background-color: #388E3C; /* Darker green on hover */
+      transform: translateY(-2px); /* Slight lift on hover */
+     }
+
+    /* Section Title Styles */
+    .section-title {
+      text-align: center;
+      font-size: 2.2rem; /* Larger title */
+      font-weight: 600;
+      margin-bottom: 25px; /* Space below title */
+      color: var(--dark-color);
+    }
+
+
+    /* --- REWARDS SECTION STYLES --- */
+    .rewards-section {
+      padding: 60px 0;
+      background-color: var(--white-color); /* Plain white background */
+      /* Removed background image */
+      color: var(--text-color);
+    }
+
+    .rewards-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      /* padding removed, handled by .container */
+    }
+
+    .rewards-info {
+      max-width: 700px; /* Keep max-width */
+      margin-bottom: 40px; /* Increased space below info block */
+      /* Removed background-color: rgba(...) */
+      padding: 0; /* Remove padding, not needed without background */
+    }
+     .rewards-info p {
+        margin-bottom: 25px; /* Add space between paragraph and button */
+        color: #555; /* Slightly lighter text color for paragraph */
+        font-size: 1.05rem;
+     }
+
+    .rewards-points {
+      display: flex;
+      flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
+      justify-content: center; /* Center cards horizontally */
+      gap: 30px; /* Increased gap between cards */
+      width: 100%;
+      /* margin-top removed, spacing handled by rewards-info margin-bottom */
+    }
+
+    .point-card {
+      background-color: var(--light-color); /* Use light grey background */
+      border-radius: 10px;
+      padding: 30px 25px; /* Adjusted padding */
+      width: 100%; /* Take full width on small screens */
+      max-width: 300px; /* Max width per card */
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Softer shadow */
+      text-align: center; /* Center text inside card */
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+     .point-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+     }
+
+    .point-card h3 {
+      color: var(--primary-color); /* Green heading */
+      font-size: 1.25rem; /* Slightly larger heading */
+      font-weight: 600;
+      margin-bottom: 15px; /* Increased space below heading */
+    }
+     .point-card p {
+        font-size: 0.95rem;
+        color: #555;
+     }
+
+     /* Responsive Adjustments */
+     @media (max-width: 768px) {
+        .section-title {
+            font-size: 1.8rem;
+        }
+        .rewards-points {
+            gap: 20px;
+        }
+        .point-card {
+            max-width: 350px; /* Allow cards to be slightly wider */
+        }
+        /* Hide nav links and show toggle button if implementing mobile menu */
+        nav .nav-links {
+            display: none;
+        }
+     }
+     @media (max-width: 480px) {
+        .section-title {
+            font-size: 1.6rem;
+        }
+        .rewards-info p {
+            font-size: 1rem;
+        }
+        .point-card h3 {
+            font-size: 1.15rem;
+        }
+         .point-card p {
+            font-size: 0.9rem;
+         }
+     }
+
+  </style>
+</head>
+
+<body>
+  <header>
+    <!-- Assuming you have a .container class defined for centering -->
+    <nav class="container">
+      <div class="logo">
+        <i class="fas fa-recycle"></i>
+        <span>EcoScan</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html#why ecoscan" class="link">Features</a></li>
+        <li><a href="index.html#scanner" class="link">Scanner</a></li>
+        <li><a href="#rewards" class="active" >Rewards</a></li> <!-- Example active link -->
+        <li><a href="How it works.html#how it works" class="link">How It Works</a></li>
+        <li><a href="index.html#about" class="link">About</a></li>
+      </ul>
+      <button class="btn" onclick="window.location.href='Logout.html'">Logout</button>
+    </nav>
+  </header>
+
+  <!-- Rewards Section -->
+  <section class="rewards-section" id="rewards">
+    <!-- Use the .container class here -->
+    <div class="container">
+      <!-- Added section-title class to h2 -->
+      <h2 class="section-title">Rewards Program</h2>
+      <div class="rewards-container">
+        <div class="rewards-info">
+          <p>Our rewards program is designed to incentivize plastic recycling. 
+            Earn points for every recyclable item you scan and properly dispose of.
+            Accumulate points and redeem them for various rewards including gift cards, eco-friendly products, or even donate to environmental causes.</p>
+          <!-- Ensured the button has the .btn class -->
+          <button class="btn">Join Rewards Program</button>
+        </div>
+        <div class="rewards-points">
+          <div class="point-card">
+            <h3>Scan & Earn</h3>
+            <p>10-25 points per recyclable item scanned</p>
+          </div>
+          <div class="point-card">
+            <h3>Recycling Streak</h3>
+            <p>Bonus points for consistent recycling activities</p>
+          </div>
+          <div class="point-card">
+            <h3>Referral Bonus</h3>
+            <p>100 points when friends join using your code</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Add other sections of your page here -->
+
+</body>
+</html>

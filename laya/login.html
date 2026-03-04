@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="mystyle.css">
+    <title>EcoScan Login & Registration</title>
+</head>
+<body>
+    <div class="wrapper">
+        <nav class="nav">
+            <div class="nav-logo">
+                <p>EcoScan</p>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="home.html" class="link">Home</a></li>
+                    <li><a href="#about" class="link">About</a></li>
+                    <li><a href="#services" class="link">Services</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-user-profile" id="navUserProfile" style="display: none;">
+                <!-- Content injected by JavaScript -->
+            </div>
+
+            <div class="nav-auth-buttons" id="navAuthButtons">
+                <button class="btn white-btn" id="loginBtn" onclick="login()">Sign In</button>
+                <button class="btn" id="registerBtn" onclick="register()">Sign Up</button>
+            </div>
+
+            <div class="nav-menu-btn">
+                <i class="bx bx-menu" onclick="myMenuFunction()"></i>
+            </div>
+        </nav>
+
+        <div class="form-box" id="formBox">
+            <!-- Login Form -->
+            <div class="login-container" id="login">
+                <div class="top">
+                    <span>Don't have an account? <a href="#" onclick="register()">Sign Up</a></span>
+                    <header>Login</header>
+                </div>
+                <div class="input-box">
+                    <input type="text" class="input-field" placeholder="Email" id="login-email" autocomplete="username">
+                    <i class="bx bx-user"></i>
+                    <span class="error-message" id="login-email-error"></span>
+                </div>
+                <div class="input-box">
+                    <input type="password" class="input-field" placeholder="Password" id="login-password" autocomplete="current-password">
+                    <i class="bx bx-lock-alt"></i>
+                    <span class="error-message" id="login-password-error"></span>
+                </div>
+                <div class="input-box">
+                    <button type="button" class="submit" onclick="handleLoginSubmit()">Sign In</button>
+                </div>
+                <div class="two-col">
+                    <div class="one">
+                        <input type="checkbox" id="login-check">
+                        <label for="login-check"> Remember Me</label>
+                    </div>
+                    <div class="two">
+                        <label><a href="forgotpassword.html#forgotpassword" class="link">Forgot password?</a></label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Registration Form -->
+            <div class="register-container" id="register">
+                <div class="top">
+                    <span>Have an account? <a href="#" onclick="login()">Login</a></span>
+                    <header>Sign Up</header>
+                </div>
+                <div class="two-forms">
+                    <div class="input-box">
+                        <input type="text" class="input-field" placeholder="Firstname" id="reg-firstname" autocomplete="given-name">
+                        <i class="bx bx-user"></i>
+                        <span class="error-message" id="reg-firstname-error"></span>
+                    </div>
+                    <div class="input-box">
+                        <input type="text" class="input-field" placeholder="Lastname" id="reg-lastname" autocomplete="family-name">
+                        <i class="bx bx-user"></i>
+                        <span class="error-message" id="reg-lastname-error"></span>
+                    </div>
+                </div>
+                <div class="input-box">
+                    <input type="email" class="input-field" placeholder="Email" id="reg-email" autocomplete="email">
+                    <i class="bx bx-envelope"></i>
+                    <span class="error-message" id="reg-email-error"></span>
+                </div>
+                <div class="input-box">
+                    <input type="password" class="input-field" placeholder="Password" id="reg-password" autocomplete="new-password">
+                    <i class="bx bx-lock-alt"></i>
+                    <span class="error-message" id="reg-password-error"></span>
+                </div>
+                <div class="input-box">
+                    <input type="password" class="input-field" placeholder="Confirm Password" id="reg-password-confirm" autocomplete="new-password">
+                    <i class="bx bx-lock-alt"></i>
+                    <span class="error-message" id="reg-password-confirm-error"></span>
+                </div>
+                <div class="input-box terms-box">
+                    <input type="checkbox" id="reg-terms" disabled> <!-- Main form checkbox, initially disabled -->
+                    <label for="reg-terms"> I agree to the <a href="#" id="termsLink">Terms & conditions</a></label>
+                    <span class="error-message" id="reg-terms-error"></span>
+                </div>
+                <div class="input-box">
+                    <button type="button" class="submit" onclick="handleRegisterSubmit()">Register</button> <!-- Main Register button -->
+                </div>
+            </div>
+
+            <!-- Success Message Container -->
+            <div class="success-container" id="success-message">
+                <div id="confetti-container"></div> <!-- Container for confetti -->
+                <div class="success-icon"><i class='bx bx-check-circle'></i></div>
+                <header id="success-header">Success!</header>
+                <p id="success-text">You will be redirected shortly...</p>
+            </div>
+        </div>
+
+        <div class="main-content-area" id="mainPageContent" style="display: none;">
+            <h1>Welcome to EcoScan!</h1>
+            <p>This is your main content area after logging in.</p>
+        </div>
+    </div>
+
+    <!-- Terms & Conditions Modal -->
+    <div id="termsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal-btn" id="closeTermsModalBtn">×</span>
+            <h2>Terms & Conditions</h2>
+            <div class="terms-text-container" id="termsTextContainer">
+                <!--
+                    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    IMPORTANT:
+                    PASTE YOUR **FULL** AND **LENGTHY** Terms and Conditions text here.
+                    The placeholder below is NOT sufficient for proper testing or use.
+                    It needs to be long enough to force the user to scroll.
+                    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                -->
+                <p><strong>Welcome to EcoScan!</strong></p>
+                <p>Last Updated: October 27, 2023</p>
+                <p>These Terms and Conditions ("Terms") govern your access to and use of the EcoScan website, application, and services (collectively, the "Service") provided by [Your Company Name/Your Name if individual] ("we," "us," or "our").</p>
+                <p>By accessing or using our Service, you agree to be bound by these Terms and our Privacy Policy. If you do not agree to these Terms, do not use the Service.</p>
+                <p><strong>1. Service Description</strong></p>
+                <p>EcoScan provides a platform for users to scan physical items, particularly plastic objects, using their device's camera to identify the item or material type and receive information about its recyclability, environmental impact, or sustainable alternatives. Users can also contribute to a community database by submitting information about scanned items and their disposal methods, learn about different types of plastics and their environmental implications, and track their efforts in identifying and properly managing plastic waste.</p>
+                <p><strong>2. User Accounts</strong></p>
+                <p>   a.  <strong>Registration:</strong> To use certain features of the Service, you may be required to register for an account. You agree to provide accurate, current, and complete information during the registration process and to update such information to keep it accurate, current, and complete.</p>
+                <p>   b.  <strong>Account Security:</strong> You are responsible for safeguarding your password and for any activities or actions under your account. You agree to notify us immediately of any unauthorized use of your account. We are not liable for any loss or damage arising from your failure to comply with this security obligation.</p>
+                <p>   c.  <strong>Age Restriction:</strong> You must be at least 13 years old to create an account and use the Service.</p>
+                <p><strong>3. Acceptable Use Policy</strong></p>
+                <p>You agree not to use the Service to: Upload, post, email, transmit, or otherwise make available any content that is unlawful, harmful, threatening, abusive, harassing, defamatory, vulgar, obscene, libelous, invasive of another's privacy, hateful, or racially, ethnically, or otherwise objectionable. Impersonate any person or entity... (continue with your full terms here)</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+                <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?</p>
+                <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+                 <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
+                <p>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.</p>
+                <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>
+                <p><strong>Section X: Final Provisions</strong></p>
+                <p>By scrolling to the end of this document, you acknowledge that you have been presented with the full terms and conditions.</p>
+                <p><em>(End of Terms and Conditions - Make sure there's enough content above this line to force scrolling)</em></p>
+            </div>
+
+            <div class="modal-footer">
+                <input type="checkbox" id="modalTermsAgreeCheckbox" disabled>
+                <label for="modalTermsAgreeCheckbox">I have read and agree to these Terms & Conditions</label>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

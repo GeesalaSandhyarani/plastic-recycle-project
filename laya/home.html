@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ecoscan Home</title>
+
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4CAF50',
+                        secondary: '#8BC34A',
+                        guidePrimary: '#00B67A',
+                        guideSecondary: '#E8F7F3',
+                        mapSecondary: '#ADD8E6',
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .font-pacifico {
+            font-family: 'Pacifico', cursive;
+        }
+        .image-container {
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .map-container {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            background-image: url('https://public.readdy.ai/gen_page/map_placeholder_1280x720.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        .location-marker {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background-color: #ADD8E6; /* mapSecondary */
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .location-marker:before {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #000;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .location-marker:hover {
+            background-color: #fff;
+            transform: rotate(-45deg) scale(1.2);
+        }
+        .recycling-icon {
+             color: #8BC34A; /* secondary */
+        }
+    </style>
+</head>
+
+<body class="bg-white min-h-screen flex flex-col">
+
+    <!-- Header Section -->
+    <header class="w-full py-4 px-6 md:px-12 flex items-center justify-between bg-white shadow-sm sticky top-0 z-50">
+        <div class="flex items-center space-x-3">
+            <i class="ri-recycle-line ri-xl w-10 h-10 flex items-center justify-center text-primary"></i>
+            <h1 class="text-2xl md:text-3xl font-pacifico text-primary">
+                ecoscan
+            </h1>
+        </div>
+        <nav class="flex items-center space-x-6">
+            <a href="#" class="text-gray-700 hover:text-primary transition-colors" aria-label="Home">
+                <i class="ri-home-4-line ri-xl"></i>
+            </a>
+            <a href="login.html" class="bg-primary text-white px-5 py-2 !rounded-button hover:bg-opacity-90 transition-colors text-sm font-medium whitespace-nowrap">
+                Login
+            </a>
+        </nav>
+    </header>
+
+    <div class="flex-grow"> <!-- Wrapper to push footer down -->
+        <!-- Main Content Section 1 (White Background) -->
+        <main class="max-w-7xl mx-auto px-4 md:px-8 py-12">
+            <div class="flex flex-col md:flex-row gap-8 md:gap-16">
+                <div class="md:w-1/2">
+                    <div class="space-y-4">
+                        <div class="image-container">
+                            <img src="https://static.readdy.ai/image/01304acebd99f3a524bdbf9112ee73fc/48b7899a1128edfab4e905e7f3de30fb.jpeg" alt="Anti-littering Illustration">
+                        </div>
+                        <div class="image-container">
+                            <img src="https://static.readdy.ai/image/01304acebd99f3a524bdbf9112ee73fc/47d578e01cf2cbae443a1db2cab23047.jpeg" alt="Anti-littering Illustration">
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 space-y-8">
+                    <div class="flex items-start gap-6">
+                        <div class="w-16 h-16 flex items-center justify-center bg-green-100 rounded-full flex-shrink-0">
+                            <i class="ri-recycle-line text-primary ri-2x"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-green-500 uppercase tracking-wide mb-2">
+                                Recycle Plastic
+                            </h2>
+                            <p class="text-gray-600 leading-relaxed">
+                                Plastic, a very common element, a very part of our daily life, is in fact harming the environment everyday more than we could ever imagine.Plastic has become a threat to the environment because we are misusing plastic and are not recycling it on a daily basis. Thus, the way to deal with plastic is recycling them and re-using them which will thus stop the requirement for any more new production of plastic.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-6">
+                        <div class="w-16 h-16 flex items-center justify-center bg-lime-100 rounded-full flex-shrink-0">
+                            <i class="ri-delete-bin-line text-lime-500 ri-2x"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-green-500 uppercase tracking-wide mb-2">
+                                Reduce Waste
+                            </h2>
+                            <p class="text-gray-600 leading-relaxed">
+                                Wastes are unwanted and unusable materials that are discarded away. These wastes are harmful for us and is damaging and polluting our environment day by day. The amount of waste needs to be reduced to a minimum to protect and preserve our nature and our very own environment which gives us a healthy atmosphere for our own existence.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-6">
+                        <div class="w-16 h-16 flex items-center justify-center bg-teal-100 rounded-full flex-shrink-0">
+                            <i class="ri-hand-heart-line text-teal-500 ri-2x"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-green-500 uppercase tracking-wide mb-2">
+                                Careful Disposal
+                            </h2>
+                            <p class="text-gray-600 leading-relaxed">
+                                Plastic is a very important part of humanity. It is used everywhere from shopping bags to mobile covers. But the worst part is that it is harming our environment the most. It is non-biodegradable and the safest way to deal with it is re-using it as much as possible so that the production of new plastic can be ceased once and for all.
+                            </p>
+                            <div class="image-container mt-4">
+                                <img src="https://static.readdy.ai/image/01304acebd99f3a524bdbf9112ee73fc/a04af68f5dac99560dbc3a6623716ac2.jpeg" alt="Anti-littering Illustration">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Plastic Recycling Guide Section (Gray Background) -->
+        <section class="bg-gray-50 py-12">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h1 class="text-4xl font-bold text-gray-800 mb-3">
+                        Plastic Recycling Guide
+                    </h1>
+                    <p class="text-gray-600 max-w-2xl mx-auto">
+                        Learn about different types of plastics and how to properly recycle them.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- PET Card -->
+                    <div class="bg-white p-6 rounded shadow-sm transition-all duration-300 card-hover">
+                        <div class="flex items-start mb-4">
+                            <div class="w-12 h-12 bg-guideSecondary rounded-full flex items-center justify-center text-guidePrimary font-semibold mr-4">
+                                1
+                            </div>
+                            <h2 class="text-xl font-bold text-gray-800">PET</h2>
+                        </div>
+                        <p class="text-gray-600 mb-5">
+                            Polyethylene Terephthalate. Commonly used for water bottles, soda bottles, and food containers.
+                        </p>
+                        <div class="flex items-center text-green-600">
+                            <i class="ri-check-line w-5 h-5 mr-2"></i>
+                            <span class="font-medium">Highly recyclable</span>
+                        </div>
+                    </div>
+                     <!-- HDPE Card -->
+                    <div class="bg-white p-6 rounded shadow-sm transition-all duration-300 card-hover">
+                        <div class="flex items-start mb-4">
+                            <div class="w-12 h-12 bg-guideSecondary rounded-full flex items-center justify-center text-guidePrimary font-semibold mr-4">
+                                2
+                            </div>
+                            <h2 class="text-xl font-bold text-gray-800">HDPE</h2>
+                        </div>
+                        <p class="text-gray-600 mb-5">
+                            High-Density Polyethylene. Used for milk jugs, detergent bottles, and some plastic bags.
+                        </p>
+                        <div class="flex items-center text-green-600">
+                            <i class="ri-check-line w-5 h-5 mr-2"></i>
+                            <span class="font-medium">Easily recyclable</span>
+                        </div>
+                    </div>
+                     <!-- PVC Card -->
+                    <div class="bg-white p-6 rounded shadow-sm transition-all duration-300 card-hover">
+                        <div class="flex items-start mb-4">
+                            <div class="w-12 h-12 bg-guideSecondary rounded-full flex items-center justify-center text-guidePrimary font-semibold mr-4">
+                                3
+                            </div>
+                            <h2 class="text-xl font-bold text-gray-800">PVC</h2>
+                        </div>
+                        <p class="text-gray-600 mb-5">
+                            Polyvinyl Chloride. Found in pipes, shower curtains, and some food wraps.
+                        </p>
+                        <div class="flex items-center text-yellow-500">
+                            <i class="ri-alert-line w-5 h-5 mr-2"></i>
+                            <span class="font-medium">Limited recyclability</span>
+                        </div>
+                    </div>
+                     <!-- LDPE Card -->
+                    <div class="bg-white p-6 rounded shadow-sm transition-all duration-300 card-hover">
+                        <div class="flex items-start mb-4">
+                            <div class="w-12 h-12 bg-guideSecondary rounded-full flex items-center justify-center text-guidePrimary font-semibold mr-4">
+                                4
+                            </div>
+                            <h2 class="text-xl font-bold text-gray-800">LDPE</h2>
+                        </div>
+                        <p class="text-gray-600 mb-5">
+                            Low-Density Polyethylene. Used for squeezable bottles, shopping bags, and food wraps.
+                        </p>
+                        <div class="flex items-center text-yellow-500">
+                            <i class="ri-alert-line w-5 h-5 mr-2"></i>
+                            <span class="font-medium">Sometimes recyclable</span>
+                        </div>
+                    </div>
+                     <!-- PP Card -->
+                    <div class="bg-white p-6 rounded shadow-sm transition-all duration-300 card-hover">
+                        <div class="flex items-start mb-4">
+                            <div class="w-12 h-12 bg-guideSecondary rounded-full flex items-center justify-center text-guidePrimary font-semibold mr-4">
+                                5
+                            </div>
+                            <h2 class="text-xl font-bold text-gray-800">PP</h2>
+                        </div>
+                        <p class="text-gray-600 mb-5">
+                            Polypropylene. Found in yogurt containers, medicine bottles, and bottle caps.
+                        </p>
+                        <div class="flex items-center text-green-600">
+                            <i class="ri-check-line w-5 h-5 mr-2"></i>
+                            <span class="font-medium">Increasingly recyclable</span>
+                        </div>
+                    </div>
+                    <!-- PS Card -->
+                    <div class="bg-white p-6 rounded shadow-sm transition-all duration-300 card-hover">
+                        <div class="flex items-start mb-4">
+                            <div class="w-12 h-12 bg-guideSecondary rounded-full flex items-center justify-center text-guidePrimary font-semibold mr-4">
+                                6
+                            </div>
+                            <h2 class="text-xl font-bold text-gray-800">PS</h2>
+                        </div>
+                        <p class="text-gray-600 mb-5">
+                            Polystyrene (Styrofoam). Used for disposable cups, take-out containers, and packing materials.
+                        </p>
+                        <div class="flex items-center text-red-500">
+                            <i class="ri-close-line w-5 h-5 mr-2"></i>
+                            <span class="font-medium">Rarely recyclable</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Additional Information -->
+                <div class="mt-16 bg-white p-8 rounded shadow-sm">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                        How to Prepare Plastics for Recycling
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="flex flex-col">
+                            <div class="w-12 h-12 bg-guideSecondary rounded-full flex items-center justify-center text-guidePrimary font-semibold mb-4">
+                                <i class="ri-water-flash-line ri-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2">
+                                Rinse Containers
+                            </h3>
+                            <p class="text-gray-600">
+                                Remove food residue and rinse containers before recycling to prevent contamination.
+                            </p>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="w-12 h-12 bg-guideSecondary rounded-full flex items-center justify-center text-guidePrimary font-semibold mb-4">
+                                <i class="ri-scissors-line ri-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2">
+                                Remove Labels
+                            </h3>
+                            <p class="text-gray-600">
+                                When possible, remove paper labels and adhesive from plastic containers.
+                            </p>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="w-12 h-12 bg-guideSecondary rounded-full flex items-center justify-center text-guidePrimary font-semibold mb-4">
+                                <i class="ri-compress-line ri-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2">
+                                Flatten Items
+                            </h3>
+                            <p class="text-gray-600">
+                                Compress bottles and containers to save space in recycling bins.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Call to Action -->
+                <div class="mt-16 text-center">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                        Ready to Start Recycling Smarter?
+                    </h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto mb-8">
+                        Join EcoScan today and earn rewards for your recycling efforts while helping to protect our planet.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section (Black Background) -->
+        <section class="bg-black text-white py-12" id="map-section-id"> <!-- Added ID for footer link -->
+            <div class="container mx-auto px-8">
+                <div class="flex flex-col items-center mb-10">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 flex items-center justify-center mr-3">
+                             <i class="ri-recycle-line ri-2x recycling-icon"></i>
+                        </div>
+                        <h1 class="text-3xl font-bold">
+                            Recyclers in India
+                        </h1>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 flex items-center justify-center mr-3">
+                            <i class="ri-bottle-line ri-lg text-mapSecondary"></i>
+                        </div>
+                        <h2 class="text-xl text-gray-300">
+                            PET Bottles Recycling Machine Locations
+                        </h2>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="md:col-span-2">
+                        <div class="map-container relative rounded">
+                            <!-- Markers remain the same -->
+                            <div class="location-marker" style="top: 25%; left: 60%;" data-location="Delhi"></div>
+                            <div class="location-marker" style="top: 30%; left: 65%;" data-location="Lucknow"></div>
+                            <div class="location-marker" style="top: 35%; left: 55%;" data-location="Jaipur"></div>
+                            <div class="location-marker" style="top: 45%; left: 45%;" data-location="Ahmedabad"></div>
+                            <div class="location-marker" style="top: 55%; left: 50%;" data-location="Mumbai"></div>
+                            <div class="location-marker" style="top: 65%; left: 45%;" data-location="Bangalore"></div>
+                            <div class="location-marker" style="top: 70%; left: 55%;" data-location="Chennai"></div>
+                            <div class="location-marker" style="top: 60%; left: 70%;" data-location="Kolkata"></div>
+                            <div class="location-marker" style="top: 40%; left: 75%;" data-location="Guwahati"></div>
+                            <div class="location-marker" style="top: 50%; left: 60%;" data-location="Hyderabad"></div>
+                            <div class="location-marker" style="top: 55%; left: 35%;" data-location="Kochi"></div>
+                            <div class="location-marker" style="top: 75%; left: 50%;" data-location="Coimbatore"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="bg-gray-900 rounded p-6 h-full">
+                            <h3 class="text-xl font-bold mb-4">
+                                Recycling Statistics
+                            </h3>
+                            <div class="space-y-6">
+                                <div>
+                                    <h4 class="text-lg mb-2">Total Recycling Machines</h4>
+                                    <div class="text-4xl font-bold text-primary">247</div>
+                                    <p class="text-gray-400 mt-1">Across 12 major cities</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg mb-2">Monthly Collection</h4>
+                                    <div class="text-4xl font-bold text-primary">35.8 tons</div>
+                                    <p class="text-gray-400 mt-1">Of PET bottles recycled</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg mb-2">Environmental Impact</h4>
+                                    <div class="flex items-center mt-2">
+                                        <div class="w-full bg-gray-700 rounded-full h-2.5">
+                                            <div class="bg-primary h-2.5 rounded-full" style="width: 75%"></div>
+                                        </div>
+                                        <span class="ml-2">75%</span>
+                                    </div>
+                                    <p class="text-gray-400 mt-1">Reduction in landfill waste</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div> <!-- End flex-grow -->
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-100 border-t border-gray-200 py-8 px-4">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between text-gray-700 text-sm">
+            <div class="flex items-center mb-4 md:mb-0">
+                <i class="ri-recycle-line ri-lg w-8 h-8 flex items-center justify-center text-primary mr-2"></i>
+                <span class="font-pacifico text-lg text-primary">
+                    ecoscan
+                </span>
+            </div>
+            <nav class="flex flex-wrap items-center justify-center md:justify-end gap-x-6 gap-y-2">
+                <a href="#" class="hover:text-primary transition-colors flex items-center">
+                    <i class="ri-home-4-line mr-1"></i>Home
+                </a>
+                <a href="#contact" class="hover:text-primary transition-colors">
+                    Contact Us
+                </a>
+                <a href="mailto:info@ecoscan.com" class="hover:text-primary transition-colors">
+                    info@ecoscan.com
+                </a>
+                <a href="#map-section-id" class="hover:text-primary transition-colors">
+                    Recyclers in India
+                </a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Map Tooltips -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mapContainer = document.querySelector('.map-container');
+            if (mapContainer) {
+                const markers = mapContainer.querySelectorAll('.location-marker');
+                markers.forEach(marker => {
+                    marker.addEventListener('mouseover', function () {
+                        const location = this.getAttribute('data-location');
+                        if (this.querySelector('.tooltip')) return;
+                        const tooltip = document.createElement('div');
+                        tooltip.className = 'tooltip absolute bg-black bg-opacity-80 text-white px-3 py-1 rounded text-sm z-20 pointer-events-none';
+                        tooltip.style.cssText = 'bottom: 125%; left: 50%; transform: translateX(-50%); white-space: nowrap;';
+                        tooltip.textContent = location;
+                        this.appendChild(tooltip);
+                    });
+                    marker.addEventListener('mouseout', function () {
+                        const tooltip = this.querySelector('.tooltip');
+                        if (tooltip) { this.removeChild(tooltip); }
+                    });
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
