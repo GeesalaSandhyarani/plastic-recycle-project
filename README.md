@@ -64,6 +64,8 @@ git clone https://github.com/GeesalaSandhyarani/plastic-recycle-project.git
 To promote **eco-friendly habits** and spread awareness about responsible plastic waste management among the general public — making recycling easy, fun and rewarding!
 
 ---
+## Live Demo
+https://your-vercel-link.vercel.app
 
 ## 👩‍💻 Developer
 
