@@ -65,7 +65,7 @@ To promote **eco-friendly habits** and spread awareness about responsible plasti
 
 ---
 ## Live Demo
-https://your-vercel-link.vercel.app
+https://plastic-recycle-project-m587t85q5-geesalasandhyaranis-projects.vercel.app
 
 ## 👩‍💻 Developer
 
